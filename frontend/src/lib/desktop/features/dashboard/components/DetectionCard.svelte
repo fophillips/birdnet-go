@@ -163,7 +163,8 @@
   )}
 >
   <!-- Inner container with overflow-hidden for spectrogram clipping -->
-  <div class="detection-card-inner">
+  <!-- Compact (shorter) layout when there is no spectrogram to display -->
+  <div class="detection-card-inner" class:compact={!audioEnabled}>
     <!-- Spectrogram Background (hidden when audio export is disabled) -->
     {#if audioEnabled}
       <div class="spectrogram-container">
@@ -284,6 +285,12 @@
     height: 15rem; /* ~240px - taller for better spectrogram visibility, especially low frequencies */
     border-radius: 0.75rem;
     overflow: hidden;
+  }
+
+  /* Without a spectrogram, the card only needs room for the top badges and the
+     bottom species-info bar, so collapse the reserved height. */
+  .detection-card-inner.compact {
+    height: 7rem; /* ~112px - fits badges + species-info bar without overlap */
   }
 
   /* Spectrogram container */

@@ -113,7 +113,8 @@
   class={cn('detection-card group relative rounded-xl', isMenuOpen && 'z-[60]')}
 >
   <!-- Inner container with overflow-hidden for spectrogram clipping -->
-  <div class="detection-card-inner">
+  <!-- Compact (shorter) layout when there is no spectrogram to display -->
+  <div class="detection-card-inner" class:compact={!audioEnabled}>
     <!-- Spectrogram Background (hidden when audio export is disabled) -->
     {#if audioEnabled}
       <div class="spectrogram-container">
@@ -224,6 +225,11 @@
     height: 15rem;
     border-radius: 0.75rem;
     overflow: hidden;
+  }
+
+  /* Without a spectrogram, collapse to fit the badges + species-info bar only. */
+  .detection-card-inner.compact {
+    height: 7rem;
   }
 
   .spectrogram-container {
